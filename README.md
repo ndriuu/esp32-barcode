@@ -20,8 +20,8 @@ A lightweight barcode scanner system using **ESP32-WROOM-32 DevKit V1** and **GM
 
 | GM65 Pin | ESP32-WROOM-32 DevKit V1 |
 |----------|--------------------------|
-| TX       | RX0                      |
-| RX       | TX0                      |
+| TX       | RX0 (16)                 |
+| RX       | TX0 (17)                 |
 | VCC      | 5V                       |
 | GND      | GND                      |
 
@@ -31,26 +31,30 @@ A lightweight barcode scanner system using **ESP32-WROOM-32 DevKit V1** and **GM
 
 ## 🌐 Firebase Setup
 
-1. Create a project on [Firebase Console](https://console.firebase.google.com/)
-2. Enable **Firestore Database**
-3. Obtain:
-   - `databaseURL` → format: `project-id.firebaseio.com`
-   - `database secret` → from Service Accounts tab (legacy auth)
-4. Create a collection named `scanned_barcodes`
+Follow these steps to set up Firebase and Firestore:
 
+1. Go to the [Firebase Console](https://console.firebase.google.com/) and create a new project.
+2. In the left sidebar, navigate to **Build → Firestore Database** and click **Create Database**.
+   - Select **Start in test mode** (for development purposes)
+   - Choose your preferred Cloud Firestore location and click **Enable**
+3. Under **Project Settings → General**, find your **Project ID** (e.g., `your-project-id`)
+4. Open **Firestore**, and create a new **collection** named `TA-Barcode`
+   - You can manually add a dummy document to initialize the collection
+
+You're now ready to send data from ESP32 to Firestore!
 ---
 
-## 🧾 `secrets.h`
+## 🧾 WiFi and Firebase Configuration
 
-Create a new file `secrets.h` in your Arduino project folder:
+Replace the placeholders directly in the main sketch file:
 
 ```cpp
 #define WIFI_SSID "YOUR_WIFI_NAME"
 #define WIFI_PASSWORD "YOUR_WIFI_PASSWORD"
 
-#define FIREBASE_HOST "your-project-id.firebaseio.com"
-#define FIREBASE_AUTH "YOUR_FIREBASE_SECRET_OR_TOKEN"
+const char* PROJECT_ID = "YOUR PROJECT_ID"
 ```
+
 
 ---
 
